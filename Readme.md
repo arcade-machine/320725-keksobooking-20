@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Сергей Леонов](https://up.htmlacademy.ru/javascript/20/user/320725).
-* Наставник: `Неизвестно`.
+* Наставник: [Сам себе наставник](https://up.htmlacademy.ru/javascript/20/user/320725).
 
 ---
 
