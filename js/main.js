@@ -26,6 +26,9 @@ var ADVERT_AMOUNT = 8;
 
 var similarAdverts = [];
 
+var popupDocumentFragment = new DocumentFragment();
+var pinsDocumentFragment = new DocumentFragment();
+
 function getRandomArrayItem(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
@@ -45,9 +48,9 @@ function removeItemFromArray(item, array) {
 
 function shuffleAndReturnArrayWithRandomLenght(array) {
   var shuffled = array.slice().sort(
-    function () {
-      return 0.5 - Math.random();
-    });
+      function () {
+        return 0.5 - Math.random();
+      });
 
   return shuffled.slice(0, getRandomArbitrary(1, array.length));
 }
@@ -94,16 +97,8 @@ function setupOffer(advert) {
   offer.features = shuffleAndReturnArrayWithRandomLenght(FEATURES_LIST);
   offer.description = 'Строка с описанием';
   offer.photos = shuffleAndReturnArrayWithRandomLenght(PHOTOS_LIST);
-
-  console.log(Object.values(offer.type));
-}
-for (var i = 0; i < ADVERT_AMOUNT; i++) {
-  setupAdvert();
 }
 
-cityMap.classList.remove('map--faded');
-
-var pinsDocumentFragment = new DocumentFragment();
 function renderPin(advert) {
   var pinTemplateForeRender = pinTemplate.content.cloneNode(true);
   var pinButton = pinTemplateForeRender.querySelector('.map__pin');
@@ -116,15 +111,6 @@ function renderPin(advert) {
   pinsDocumentFragment.appendChild(pinTemplateForeRender);
 }
 
-similarAdverts.forEach(
-    function (advert) {
-      renderPin(advert);
-    }
-);
-
-pinsMap.appendChild(pinsDocumentFragment);
-
-var popupDocumentFragment = new DocumentFragment();
 function renderPopup(advert) {
   var renderPopupTemplate = cardTemplate.content.cloneNode(true);
   var popupTitle = renderPopupTemplate.querySelector('.popup__title');
@@ -134,10 +120,10 @@ function renderPopup(advert) {
   var popupCapacity = renderPopupTemplate.querySelector('.popup__text--capacity');
   var popupTime = renderPopupTemplate.querySelector('.popup__text--time');
   var popupFeatures = renderPopupTemplate.querySelector('.popup__features');
-  popupFeatures.innerHTML = ''; //clearing parent out of children's
+  popupFeatures.innerHTML = ''; // clearing parent out of children's
   var popupDescription = renderPopupTemplate.querySelector('.popup__description');
   var popupPhotos = renderPopupTemplate.querySelector('.popup__photos');
-  popupPhotos.innerHTML = ''; //clearing parent out of children's
+  popupPhotos.innerHTML = ''; // clearing parent out of children's
   var popupAvatar = renderPopupTemplate.querySelector('.popup__avatar');
 
   popupTitle.innerHTML = advert.offer.title;
@@ -158,11 +144,11 @@ function renderPopup(advert) {
 function renderFeaturesForPopup(featureList, advertFeatureList) {
   var featureListFragment = new DocumentFragment();
   advertFeatureList.forEach(
-    function (feature) {
-      var featureItem = document.createElement("li");
-      featureItem.className = 'popup__feature popup__feature--' + feature;
-      featureListFragment.appendChild(featureItem);
-    }
+      function (feature) {
+        var featureItem = document.createElement('li');
+        featureItem.className = 'popup__feature popup__feature--' + feature;
+        featureListFragment.appendChild(featureItem);
+      }
   );
   featureList.appendChild(featureListFragment);
 }
@@ -170,16 +156,29 @@ function renderFeaturesForPopup(featureList, advertFeatureList) {
 function renderAdvertPhotos(photosList, advertPhotosList) {
   var photosListFragment = new DocumentFragment();
   advertPhotosList.forEach(
-    function (photo) {
-      var photoImage = document.createElement("img");
-      photoImage.className = 'popup__photo';
-      photoImage.width = 45;
-      photoImage.height = 40;
-      photoImage.src = photo;
-      photosListFragment.appendChild(photoImage);
-    }
+      function (photo) {
+        var photoImage = document.createElement('img');
+        photoImage.className = 'popup__photo';
+        photoImage.width = 45;
+        photoImage.height = 40;
+        photoImage.src = photo;
+        photosListFragment.appendChild(photoImage);
+      }
   );
   photosList.appendChild(photosListFragment);
 }
+
+for (var i = 0; i < ADVERT_AMOUNT; i++) {
+  setupAdvert();
+}
+
+similarAdverts.forEach(
+    function (advert) {
+      renderPin(advert);
+    }
+);
+
+cityMap.classList.remove('map--faded');
+pinsMap.appendChild(pinsDocumentFragment);
 
 renderPopup(similarAdverts[0]);
