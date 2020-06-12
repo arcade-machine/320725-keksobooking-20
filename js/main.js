@@ -269,3 +269,10 @@ mainPin.addEventListener('keydown', function (evt) {
     activatePage();
   }
 });
+
+activatePage();
+
+var timeFieldset = sendAdvertForm.querySelector('.ad-form__element--time');
+sendAdvertForm.addEventListener('input', function (evt) {
+  console.log(sendAdvertForm.elements);
+});
