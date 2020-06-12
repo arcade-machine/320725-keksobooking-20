@@ -179,12 +179,11 @@ similarAdverts.forEach(
     }
 );
 
-// cityMap.classList.remove('map--faded');
 // pinsMap.appendChild(pinsDocumentFragment);
 //
 // renderPopup(similarAdverts[0]);
 
-// --------------form script-------------- //
+// --------------disable form-------------- //
 var sendAdvertForm = document.querySelector('.ad-form');
 var formFieldsets = sendAdvertForm.querySelectorAll('fieldset');
 var filterSelects = mapFiltersForm.querySelectorAll('select');
@@ -207,3 +206,43 @@ filtersFeatures.forEach(
       feature.disabled = true;
     }
 );
+
+// --------------active page-------------- //
+var mainPin = cityMap.querySelector('.map__pin--main');
+
+mainPin.addEventListener('mousedown', function (evt) {
+  if (evt.button === 0) {
+    evt.preventDefault();
+    activatePage();
+  }
+});
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    activatePage();
+  }
+});
+
+function activatePage() {
+  cityMap.classList.remove('map--faded');
+  sendAdvertForm.classList.remove('ad-form--disabled');
+
+  formFieldsets.forEach(
+      function (fieldset) {
+        fieldset.disabled = false;
+      }
+  );
+
+  filterSelects.forEach(
+      function (select) {
+        select.disabled = false;
+      }
+  );
+
+  filtersFeatures.forEach(
+      function (feature) {
+        feature.disabled = false;
+      }
+  );
+}
