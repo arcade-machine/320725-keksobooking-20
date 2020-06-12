@@ -2,7 +2,8 @@
 
 var cityMap = document.querySelector('.map');
 // var pinsMap = cityMap.querySelector('.map__pins');
-// var mapFilterContainer = cityMap.querySelector('.map__filters-container');
+var mapFiltersContainer = cityMap.querySelector('.map__filters-container');
+var mapFiltersForm = mapFiltersContainer.querySelector('.map__filters');
 
 var pinTemplate = document.querySelector('#pin');
 // var cardTemplate = document.querySelector('#card');
@@ -182,3 +183,27 @@ similarAdverts.forEach(
 // pinsMap.appendChild(pinsDocumentFragment);
 //
 // renderPopup(similarAdverts[0]);
+
+// --------------form script-------------- //
+var sendAdvertForm = document.querySelector('.ad-form');
+var formFieldsets = sendAdvertForm.querySelectorAll('fieldset');
+var filterSelects = mapFiltersForm.querySelectorAll('select');
+var filtersFeatures = mapFiltersForm.querySelectorAll('fieldset');
+
+formFieldsets.forEach(
+    function (fieldset) {
+      fieldset.disabled = true;
+    }
+);
+
+filterSelects.forEach(
+    function (select) {
+      select.disabled = true;
+    }
+);
+
+filtersFeatures.forEach(
+    function (feature) {
+      feature.disabled = true;
+    }
+);
