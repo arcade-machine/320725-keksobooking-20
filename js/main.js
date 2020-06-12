@@ -2,6 +2,7 @@
 
 var cityMap = document.querySelector('.map');
 // var pinsMap = cityMap.querySelector('.map__pins');
+var mainPin = cityMap.querySelector('.map__pin--main');
 var mapFiltersContainer = cityMap.querySelector('.map__filters-container');
 var mapFiltersForm = mapFiltersContainer.querySelector('.map__filters');
 
@@ -183,7 +184,7 @@ similarAdverts.forEach(
 //
 // renderPopup(similarAdverts[0]);
 
-// --------------disable form-------------- //
+// --------------deactivate page-------------- //
 var sendAdvertForm = document.querySelector('.ad-form');
 var formFieldsets = sendAdvertForm.querySelectorAll('fieldset');
 var filterSelects = mapFiltersForm.querySelectorAll('select');
@@ -207,24 +208,27 @@ filtersFeatures.forEach(
     }
 );
 
-// --------------active page-------------- //
-var mainPin = cityMap.querySelector('.map__pin--main');
+var addressInput = sendAdvertForm.querySelector('#address');
 
-mainPin.addEventListener('mousedown', function (evt) {
-  if (evt.button === 0) {
-    evt.preventDefault();
-    activatePage();
-  }
-});
+function setUpAddressLocation(isActive) {
+  var PIN_POINT_HEIGHT = 16;
 
-mainPin.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    evt.preventDefault();
-    activatePage();
-  }
-});
+  var leftPosition = mainPin.offsetLeft;
+  var topPosition = mainPin.offsetTop;
 
-function activatePage() {
+  var addressX = Math.floor(leftPosition + mainPin.clientWidth / 2);
+  var addressY = isActive
+    ? Math.floor(topPosition + mainPin.clientHeight + PIN_POINT_HEIGHT)
+    : Math.floor(topPosition + mainPin.clientHeight / 2);
+
+  addressInput.value = addressX + ', ' + addressY;
+}
+
+setUpAddressLocation(false);
+
+// --------------activate page-------------- //
+
+function activateForm() {
   cityMap.classList.remove('map--faded');
   sendAdvertForm.classList.remove('ad-form--disabled');
 
@@ -246,3 +250,22 @@ function activatePage() {
       }
   );
 }
+
+function activatePage() {
+  activateForm();
+  setUpAddressLocation(true);
+}
+
+mainPin.addEventListener('mousedown', function (evt) {
+  if (evt.button === 0) {
+    evt.preventDefault();
+    activatePage();
+  }
+});
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    activatePage();
+  }
+});
