@@ -23,12 +23,12 @@ var HOUSE_TYPES = [
   {'house': 'Дом'},
   {'bungalo': 'Бунгало'}
 ];
-var HOUSE_MINIMAL_PRICES = [
-  {'palace': 10000},
-  {'flat': 1000},
-  {'house': 5000},
-  {'bungalo': 0}
-];
+var HOUSE_MINIMAL_PRICES = {
+  palace: 10000,
+  flat: 1000,
+  house: 5000,
+  bungalo: 0
+};
 
 var ADVERT_AMOUNT = 8;
 
@@ -295,22 +295,7 @@ checkoutSelect.addEventListener('input', function () {
 
 typeOfHouse.addEventListener('input', function () {
   var minimumPrice = HOUSE_MINIMAL_PRICES[typeOfHouse.value];
-  switch (typeOfHouse.value) {
-    case 'bungalo':
-      minimumPrice = 0;
-      break;
-    case 'flat':
-      minimumPrice = 1000;
-      break;
-    case 'house':
-      minimumPrice = 5000;
-      break;
-    case 'palace':
-      minimumPrice = 10000;
-      break;
-    default:
-      break;
-  }
+
   priceForNight.min = minimumPrice;
   priceForNight.placeholder = minimumPrice;
 });
