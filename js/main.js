@@ -118,7 +118,7 @@ function renderPin(advert) {
   avatarImage.alt = advert.offer.title;
   pinsDocumentFragment.appendChild(pinTemplateForeRender);
 
-  pinButton.addEventListener('click', () => {
+  pinButton.addEventListener('click', function () {
     renderPopup(advert);
   });
 }
