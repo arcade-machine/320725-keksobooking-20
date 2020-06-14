@@ -23,6 +23,12 @@ var HOUSE_TYPES = [
   {'house': 'Дом'},
   {'bungalo': 'Бунгало'}
 ];
+var HOUSE_MINIMAL_PRICES = [
+  {'palace': 10000},
+  {'flat': 1000},
+  {'house': 5000},
+  {'bungalo': 0}
+];
 
 var ADVERT_AMOUNT = 8;
 
@@ -209,6 +215,7 @@ filtersFeatures.forEach(
 );
 
 var addressInput = sendAdvertForm.querySelector('#address');
+addressInput.disabled = true;
 
 function setUpAddressLocation(isActive) {
   var PIN_POINT_HEIGHT = 16;
@@ -272,7 +279,38 @@ mainPin.addEventListener('keydown', function (evt) {
 
 activatePage();
 
-var timeFieldset = sendAdvertForm.querySelector('.ad-form__element--time');
-sendAdvertForm.addEventListener('input', function (evt) {
-  console.log(sendAdvertForm.elements);
+// --------------validate form-------------- //
+var checkinSelect = sendAdvertForm.querySelector('#timein');
+var checkoutSelect = sendAdvertForm.querySelector('#timeout');
+var typeOfHouse = sendAdvertForm.querySelector('#type');
+var priceForNight = sendAdvertForm.querySelector('#price');
+
+checkinSelect.addEventListener('input', function () {
+  checkoutSelect.value = checkinSelect.value;
+});
+
+checkoutSelect.addEventListener('input', function () {
+  checkinSelect.value = checkoutSelect.value;
+});
+
+typeOfHouse.addEventListener('input', function () {
+  var minimumPrice = HOUSE_MINIMAL_PRICES[typeOfHouse.value];
+  switch (typeOfHouse.value) {
+    case 'bungalo':
+      minimumPrice = 0;
+      break;
+    case 'flat':
+      minimumPrice = 1000;
+      break;
+    case 'house':
+      minimumPrice = 5000;
+      break;
+    case 'palace':
+      minimumPrice = 10000;
+      break;
+    default:
+      break;
+  }
+  priceForNight.min = minimumPrice;
+  priceForNight.placeholder = minimumPrice;
 });
