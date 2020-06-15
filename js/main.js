@@ -9,81 +9,8 @@ var mapFiltersForm = mapFiltersContainer.querySelector('.map__filters');
 var pinTemplate = document.querySelector('#pin');
 var cardTemplate = document.querySelector('#card');
 
-var similarAdverts = [];
-
 var popupDocumentFragment = new DocumentFragment();
 var pinsDocumentFragment = new DocumentFragment();
-
-function setupAdvert() {
-  var advert = {
-    'author': {},
-    'offer': {},
-    'location': {}
-  };
-
-  setupAuthor(advert);
-  setupLocation(advert);
-  setupOffer(advert);
-
-  similarAdverts.push(advert);
-}
-
-function setupAuthor(advert) {
-  var authorImage = window.utils.getRandomArrayItem(
-      window.data.advertData.IMAGES_PATHS
-  );
-  window.utils.removeItemFromArray(
-      authorImage,
-      window.data.advertData.IMAGES_PATHS
-  );
-
-  advert.author.avatar = 'img/avatars/user' + authorImage + '.png';
-}
-
-function setupLocation(advert) {
-  var location = advert.location;
-  location.x = window.utils.getRandomArbitrary(
-      window.data.mapData.MINIMUM_X_VALUE,
-      window.data.mapData.MAXIMUM_X_VALUE
-  );
-  location.y = window.utils.getRandomArbitrary(
-      window.data.mapData.MINIMUM_Y_VALUE,
-      window.data.mapData.MAXIMUM_Y_VALUE
-  );
-}
-
-function setupOffer(advert) {
-  var offer = advert.offer;
-  var locationX = Math.floor(advert.location.x);
-  var locationY = Math.floor(advert.location.y);
-  offer.title = 'Заголовок предложения';
-  offer.address = locationX + ', ' + locationY;
-  offer.type = window.utils.getRandomArrayItem(
-      window.data.houseData.HOUSE_TYPES
-  );
-  offer.rooms = Math.floor(
-      window.utils.getRandomArbitrary(1, 4)
-  );
-  offer.guests = Math.floor(
-      window.utils.getRandomArbitrary(1, 4)
-  );
-  offer.price = Math.floor(
-      window.utils.getRandomArbitrary(1000, 50000)
-  );
-  offer.checkin = window.utils.getRandomArrayItem(
-      window.data.advertData.CHECKIN_CHECKOUT_TIME
-  );
-  offer.checkout = window.utils.getRandomArrayItem(
-      window.data.advertData.CHECKIN_CHECKOUT_TIME
-  );
-  offer.features = window.utils.shuffleAndReturnArrayWithRandomLength(
-      window.data.advertData.FEATURES_LIST
-  );
-  offer.description = 'Строка с описанием';
-  offer.photos = window.utils.shuffleAndReturnArrayWithRandomLength(
-      window.data.advertData.PHOTOS_LIST
-  );
-}
 
 function renderPin(advert) {
   var pinTemplateForeRender = pinTemplate.content.cloneNode(true);
@@ -172,11 +99,7 @@ function renderAdvertPhotos(photosList, advertPhotosList) {
   photosList.appendChild(photosListFragment);
 }
 
-for (var i = 0; i < window.data.advertData.ADVERT_AMOUNT; i++) {
-  setupAdvert();
-}
-
-similarAdverts.forEach(
+window.advert.similarAdverts.forEach(
     function (advert) {
       renderPin(advert);
     }
