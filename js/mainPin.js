@@ -6,14 +6,14 @@
   var sendAdvertForm = document.querySelector('.ad-form');
   var addressInput = sendAdvertForm.querySelector('#address');
 
-  function setUpAddressLocation(isActive) {
+  function setUpAddressLocation(isPageActive) {
     var PIN_POINT_HEIGHT = 16;
 
     var leftPosition = mainPin.offsetLeft;
     var topPosition = mainPin.offsetTop;
 
     var addressX = Math.floor(leftPosition + mainPin.clientWidth / 2);
-    var addressY = isActive
+    var addressY = isPageActive
       ? Math.floor(topPosition + mainPin.clientHeight + PIN_POINT_HEIGHT)
       : Math.floor(topPosition + mainPin.clientHeight / 2);
 
