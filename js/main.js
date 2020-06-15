@@ -9,29 +9,6 @@ var mapFiltersForm = mapFiltersContainer.querySelector('.map__filters');
 var pinTemplate = document.querySelector('#pin');
 var cardTemplate = document.querySelector('#card');
 
-var MINIMUM_Y_VALUE = 130;
-var MAXIMUM_Y_VALUE = 630;
-var MAXIMUM_X_VALUE = cityMap.clientWidth;
-
-var IMAGES_PATHS = ['01', '02', '03', '04', '05', '06', '07', '08'];
-var FEATURES_LIST = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var CHECKIN_CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
-var PHOTOS_LIST = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var HOUSE_TYPES = [
-  {'palace': 'Дворец'},
-  {'flat': 'Квартира'},
-  {'house': 'Дом'},
-  {'bungalo': 'Бунгало'}
-];
-var HOUSE_MINIMAL_PRICES = {
-  palace: 10000,
-  flat: 1000,
-  house: 5000,
-  bungalo: 0
-};
-
-var ADVERT_AMOUNT = 8;
-
 var similarAdverts = [];
 
 var popupDocumentFragment = new DocumentFragment();
@@ -52,16 +29,27 @@ function setupAdvert() {
 }
 
 function setupAuthor(advert) {
-  var authorImage = window.utils.getRandomArrayItem(IMAGES_PATHS);
-  window.utils.removeItemFromArray(authorImage, IMAGES_PATHS);
+  var authorImage = window.utils.getRandomArrayItem(
+      window.data.advertData.IMAGES_PATHS
+  );
+  window.utils.removeItemFromArray(
+      authorImage,
+      window.data.advertData.IMAGES_PATHS
+  );
 
   advert.author.avatar = 'img/avatars/user' + authorImage + '.png';
 }
 
 function setupLocation(advert) {
   var location = advert.location;
-  location.x = window.utils.getRandomArbitrary(0, MAXIMUM_X_VALUE);
-  location.y = window.utils.getRandomArbitrary(MINIMUM_Y_VALUE, MAXIMUM_Y_VALUE);
+  location.x = window.utils.getRandomArbitrary(
+      window.data.mapData.MINIMUM_X_VALUE,
+      window.data.mapData.MAXIMUM_X_VALUE
+  );
+  location.y = window.utils.getRandomArbitrary(
+      window.data.mapData.MINIMUM_Y_VALUE,
+      window.data.mapData.MAXIMUM_Y_VALUE
+  );
 }
 
 function setupOffer(advert) {
@@ -70,7 +58,9 @@ function setupOffer(advert) {
   var locationY = Math.floor(advert.location.y);
   offer.title = 'Заголовок предложения';
   offer.address = locationX + ', ' + locationY;
-  offer.type = window.utils.getRandomArrayItem(HOUSE_TYPES);
+  offer.type = window.utils.getRandomArrayItem(
+      window.data.houseData.HOUSE_TYPES
+  );
   offer.rooms = Math.floor(
       window.utils.getRandomArbitrary(1, 4)
   );
@@ -80,11 +70,19 @@ function setupOffer(advert) {
   offer.price = Math.floor(
       window.utils.getRandomArbitrary(1000, 50000)
   );
-  offer.checkin = window.utils.getRandomArrayItem(CHECKIN_CHECKOUT_TIME);
-  offer.checkout = window.utils.getRandomArrayItem(CHECKIN_CHECKOUT_TIME);
-  offer.features = window.utils.shuffleAndReturnArrayWithRandomLength(FEATURES_LIST);
+  offer.checkin = window.utils.getRandomArrayItem(
+      window.data.advertData.CHECKIN_CHECKOUT_TIME
+  );
+  offer.checkout = window.utils.getRandomArrayItem(
+      window.data.advertData.CHECKIN_CHECKOUT_TIME
+  );
+  offer.features = window.utils.shuffleAndReturnArrayWithRandomLength(
+      window.data.advertData.FEATURES_LIST
+  );
   offer.description = 'Строка с описанием';
-  offer.photos = window.utils.shuffleAndReturnArrayWithRandomLength(PHOTOS_LIST);
+  offer.photos = window.utils.shuffleAndReturnArrayWithRandomLength(
+      window.data.advertData.PHOTOS_LIST
+  );
 }
 
 function renderPin(advert) {
@@ -174,7 +172,7 @@ function renderAdvertPhotos(photosList, advertPhotosList) {
   photosList.appendChild(photosListFragment);
 }
 
-for (var i = 0; i < ADVERT_AMOUNT; i++) {
+for (var i = 0; i < window.data.advertData.ADVERT_AMOUNT; i++) {
   setupAdvert();
 }
 
@@ -287,7 +285,7 @@ checkoutSelect.addEventListener('input', function () {
 });
 
 typeOfHouse.addEventListener('input', function () {
-  var minimumPrice = HOUSE_MINIMAL_PRICES[typeOfHouse.value];
+  var minimumPrice = window.data.houseData.HOUSE_MINIMAL_PRICES[typeOfHouse.value];
 
   priceForNight.min = minimumPrice;
   priceForNight.placeholder = minimumPrice;
