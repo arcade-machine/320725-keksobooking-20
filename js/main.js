@@ -32,24 +32,7 @@ filtersFeatures.forEach(
 var addressInput = sendAdvertForm.querySelector('#address');
 addressInput.disabled = true;
 
-function setUpAddressLocation(isActive) {
-  var PIN_POINT_HEIGHT = 16;
-
-  var leftPosition = mainPin.offsetLeft;
-  var topPosition = mainPin.offsetTop;
-
-  var addressX = Math.floor(leftPosition + mainPin.clientWidth / 2);
-  var addressY = isActive
-    ? Math.floor(topPosition + mainPin.clientHeight + PIN_POINT_HEIGHT)
-    : Math.floor(topPosition + mainPin.clientHeight / 2);
-
-  addressInput.value = addressX + ', ' + addressY;
-}
-
-setUpAddressLocation(false);
-
 // --------------activate page-------------- //
-
 function activateForm() {
   cityMap.classList.remove('map--faded');
   sendAdvertForm.classList.remove('ad-form--disabled');
@@ -75,7 +58,7 @@ function activateForm() {
 
 function activatePage() {
   activateForm();
-  setUpAddressLocation(true);
+  window.mainPinModule.setUpAddressLocation(true);
 
   window.popup.renderSimilarAdverts(
       window.pin.pinsDocumentFragment
