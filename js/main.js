@@ -37,32 +37,6 @@ var similarAdverts = [];
 var popupDocumentFragment = new DocumentFragment();
 var pinsDocumentFragment = new DocumentFragment();
 
-function getRandomArrayItem(array) {
-  return array[Math.floor(Math.random() * array.length)];
-}
-
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function removeItemFromArray(item, array) {
-  for (var i = 0; i < array.length; i++) {
-    if (array[i] === item) {
-      array.splice(i, 1);
-      i--;
-    }
-  }
-}
-
-function shuffleAndReturnArrayWithRandomLenght(array) {
-  var shuffled = array.slice().sort(
-      function () {
-        return 0.5 - Math.random();
-      });
-
-  return shuffled.slice(0, getRandomArbitrary(1, array.length));
-}
-
 function setupAdvert() {
   var advert = {
     'author': {},
@@ -78,16 +52,16 @@ function setupAdvert() {
 }
 
 function setupAuthor(advert) {
-  var authorImage = getRandomArrayItem(IMAGES_PATHS);
-  removeItemFromArray(authorImage, IMAGES_PATHS);
+  var authorImage = window.utils.getRandomArrayItem(IMAGES_PATHS);
+  window.utils.removeItemFromArray(authorImage, IMAGES_PATHS);
 
   advert.author.avatar = 'img/avatars/user' + authorImage + '.png';
 }
 
 function setupLocation(advert) {
   var location = advert.location;
-  location.x = getRandomArbitrary(0, MAXIMUM_X_VALUE);
-  location.y = getRandomArbitrary(MINIMUM_Y_VALUE, MAXIMUM_Y_VALUE);
+  location.x = window.utils.getRandomArbitrary(0, MAXIMUM_X_VALUE);
+  location.y = window.utils.getRandomArbitrary(MINIMUM_Y_VALUE, MAXIMUM_Y_VALUE);
 }
 
 function setupOffer(advert) {
@@ -96,15 +70,21 @@ function setupOffer(advert) {
   var locationY = Math.floor(advert.location.y);
   offer.title = 'Заголовок предложения';
   offer.address = locationX + ', ' + locationY;
-  offer.type = getRandomArrayItem(HOUSE_TYPES);
-  offer.rooms = Math.floor(getRandomArbitrary(1, 4));
-  offer.guests = Math.floor(getRandomArbitrary(1, 4));
-  offer.price = Math.floor(getRandomArbitrary(1000, 50000));
-  offer.checkin = getRandomArrayItem(CHECKIN_CHECKOUT_TIME);
-  offer.checkout = getRandomArrayItem(CHECKIN_CHECKOUT_TIME);
-  offer.features = shuffleAndReturnArrayWithRandomLenght(FEATURES_LIST);
+  offer.type = window.utils.getRandomArrayItem(HOUSE_TYPES);
+  offer.rooms = Math.floor(
+      window.utils.getRandomArbitrary(1, 4)
+  );
+  offer.guests = Math.floor(
+      window.utils.getRandomArbitrary(1, 4)
+  );
+  offer.price = Math.floor(
+      window.utils.getRandomArbitrary(1000, 50000)
+  );
+  offer.checkin = window.utils.getRandomArrayItem(CHECKIN_CHECKOUT_TIME);
+  offer.checkout = window.utils.getRandomArrayItem(CHECKIN_CHECKOUT_TIME);
+  offer.features = window.utils.shuffleAndReturnArrayWithRandomLength(FEATURES_LIST);
   offer.description = 'Строка с описанием';
-  offer.photos = shuffleAndReturnArrayWithRandomLenght(PHOTOS_LIST);
+  offer.photos = window.utils.shuffleAndReturnArrayWithRandomLength(PHOTOS_LIST);
 }
 
 function renderPin(advert) {
