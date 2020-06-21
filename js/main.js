@@ -15,7 +15,7 @@
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
       evt.preventDefault();
-      activatePage();
+      // activatePage();
     }
   });
 
