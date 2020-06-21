@@ -33,9 +33,12 @@
     PHOTOS_LIST: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
   };
 
+  var isPageActive = false;
+
   window.data = {
     houseData: houseData,
     mapData: mapData,
-    advertData: advertData
+    advertData: advertData,
+    isPageActive: isPageActive
   };
 })();

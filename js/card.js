@@ -32,10 +32,10 @@
       mouseUp.preventDefault();
 
       mainPin.removeEventListener('mousemove', onMouseMove);
-      mainPin.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mouseup', onMouseUp);
     }
 
     mainPin.addEventListener('mousemove', onMouseMove);
-    mainPin.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mouseup', onMouseUp);
   });
 })();
