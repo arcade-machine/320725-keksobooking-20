@@ -31,7 +31,10 @@
     popupTitle.innerHTML = advert.offer.title;
     popupPrice.innerHTML = advert.offer.price + '₽/ночь';
     popupAddress.innerHTML = advert.offer.address;
-    popupType.innerHTML = Object.values(advert.offer.type);
+    popupType.innerHTML = window.utils.findObjectValue(
+        window.data.houseData.HOUSE_TYPES,
+        advert.offer.type
+    );
     popupCapacity.innerHeight = advert.offer.rooms + ' комнаты для' + advert.offer.guests + ' гостей';
     popupTime.innerHTML = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     renderFeaturesForPopup(popupFeatures, advert.offer.features);

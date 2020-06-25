@@ -27,10 +27,20 @@
     return shuffled.slice(0, getRandomArbitrary(1, array.length));
   }
 
+  function findObjectValue(object, value) {
+    var missingObject = object.find(
+        function (obj) {
+          return obj[value];
+        }
+    );
+    return Object.values(missingObject);
+  }
+
   window.utils = {
     getRandomArrayItem: getRandomArrayItem,
     getRandomArbitrary: getRandomArbitrary,
     removeItemFromArray: removeItemFromArray,
-    shuffleAndReturnArrayWithRandomLength: shuffleAndReturnArrayWithRandomLength
+    shuffleAndReturnArrayWithRandomLength: shuffleAndReturnArrayWithRandomLength,
+    findObjectValue: findObjectValue
   };
 })();
