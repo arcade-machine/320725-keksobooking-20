@@ -2,6 +2,8 @@
 
 (function () {
   var pinTemplate = document.querySelector('#pin');
+  var similarAdverts = [];
+
   var pinsDocumentFragment = new DocumentFragment();
 
   function renderPin(advert) {
@@ -20,10 +22,29 @@
     });
   }
 
-  window.advert.similarAdverts.forEach(
-      function (advert) {
-        renderPin(advert);
-      }
+  function getSimilarAdverts(data) {
+    similarAdverts = data;
+
+    similarAdverts.forEach(
+        function (advert) {
+          renderPin(advert);
+        }
+    );
+  }
+
+  function setupSimilarAdverts() {
+    similarAdverts = window.advert.similarAdverts;
+
+    similarAdverts.forEach(
+        function (advert) {
+          renderPin(advert);
+        }
+    );
+  }
+
+  window.backendModule.load(
+      getSimilarAdverts,
+      setupSimilarAdverts
   );
 
   window.pin = {
