@@ -10,7 +10,7 @@
   var cityMap = document.querySelector('.map');
   var mapFiltersContainer = cityMap.querySelector('.map__filters-container');
   var mapFiltersForm = mapFiltersContainer.querySelector('.map__filters');
-  var formFieldsets = sendAdvertForm.querySelectorAll('fieldset');
+  var formFieldSets = sendAdvertForm.querySelectorAll('fieldset');
   var filterSelects = mapFiltersForm.querySelectorAll('select');
   var filtersFeatures = mapFiltersForm.querySelectorAll('fieldset');
   var addressInput = sendAdvertForm.querySelector('#address');
@@ -35,7 +35,7 @@
   function disableOrActivateForm(shouldItBeDisabled) {
     addressInput.disabled = shouldItBeDisabled;
 
-    formFieldsets.forEach(
+    formFieldSets.forEach(
         function (fieldset) {
           fieldset.disabled = shouldItBeDisabled;
         }
@@ -62,7 +62,15 @@
     disableOrActivateForm(false);
   }
 
+  function deactivateForm() {
+    cityMap.classList.add('map--faded');
+    sendAdvertForm.classList.add('ad-form--disabled');
+    sendAdvertForm.reset();
+    disableOrActivateForm(true);
+  }
+
   window.formModule = {
-    activateForm: activateForm
+    activateForm: activateForm,
+    deactivateForm: deactivateForm
   };
 })();

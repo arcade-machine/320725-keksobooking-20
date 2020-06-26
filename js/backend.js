@@ -2,7 +2,7 @@
 
 (function () {
   var dataURL = 'https://javascript.pages.academy/keksobooking/data';
-  var posURL = '';
+  var postURL = 'https://javascript.pages.academy/keksobooking';
 
   function load(onSuccess, onError) {
     var xhr = new XMLHttpRequest();
@@ -39,7 +39,7 @@
       onSuccess(xhr.response);
     });
 
-    xhr.open('POST', posURL);
+    xhr.open('POST', postURL);
     xhr.send(data);
   }
 
