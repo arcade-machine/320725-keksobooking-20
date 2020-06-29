@@ -28,7 +28,11 @@
     window.backendModule.save(
         formData,
         function () {
+          window.userMessages.renderSuccessMessage();
           deactivatePage();
+        },
+        function () {
+          window.userMessages.renderFailMessage();
         }
     );
 
