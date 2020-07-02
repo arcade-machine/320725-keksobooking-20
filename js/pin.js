@@ -2,11 +2,11 @@
 
 (function () {
   var pinTemplate = document.querySelector('#pin');
+  var pinsMap = document.querySelector('.map__pins');
+
   var similarAdverts = [];
 
-  var pinsDocumentFragment = new DocumentFragment();
-
-  function renderPin(advert) {
+  function renderPin(advert, fragment) {
     var pinTemplateForeRender = pinTemplate.content.cloneNode(true);
     var pinButton = pinTemplateForeRender.querySelector('.map__pin');
     var avatarImage = pinTemplateForeRender.querySelector('img');
@@ -15,7 +15,7 @@
     pinButton.style.top = advert.location.y - pinButton.clientHeight + 'px';
     avatarImage.src = advert.author.avatar;
     avatarImage.alt = advert.offer.title;
-    pinsDocumentFragment.appendChild(pinTemplateForeRender);
+    fragment.appendChild(pinTemplateForeRender);
 
     pinButton.addEventListener('click', function () {
       window.popup.renderPopup(advert);
@@ -23,23 +23,23 @@
   }
 
   function getSimilarAdverts(data) {
-    similarAdverts = data;
-
-    similarAdverts.forEach(
-        function (advert) {
-          renderPin(advert);
-        }
-    );
+    window.advert.similarAdverts = data;
   }
 
-  function setupSimilarAdverts() {
+  function setupMockData() {
     similarAdverts = window.advert.similarAdverts;
+  }
 
-    similarAdverts.forEach(
+  function renderSimilarPins(adverts) {
+    var pinsDocumentFragment = new DocumentFragment();
+
+    adverts.forEach(
         function (advert) {
-          renderPin(advert);
+          renderPin(advert, pinsDocumentFragment);
         }
     );
+
+    pinsMap.appendChild(pinsDocumentFragment);
   }
 
   function removeSimilarPinsFromPage() {
@@ -57,11 +57,12 @@
 
   window.backendModule.load(
       getSimilarAdverts,
-      setupSimilarAdverts
+      setupMockData
   );
 
   window.pin = {
-    pinsDocumentFragment: pinsDocumentFragment,
-    removeSimilarPinsFromPage: removeSimilarPinsFromPage
+    removeSimilarPinsFromPage: removeSimilarPinsFromPage,
+    renderSimilarPins: renderSimilarPins,
+    similarAdverts: similarAdverts
   };
 })();

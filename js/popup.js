@@ -2,7 +2,6 @@
 
 (function () {
   var cityMap = document.querySelector('.map');
-  var pinsMap = cityMap.querySelector('.map__pins');
   var mapFiltersContainer = cityMap.querySelector('.map__filters-container');
 
   var cardTemplate = document.querySelector('#card');
@@ -89,13 +88,8 @@
     photosList.appendChild(photosListFragment);
   }
 
-  function renderSimilarAdverts(fragment) {
-    pinsMap.appendChild(fragment);
-  }
-
   window.popup = {
-    renderPopup: renderPopup,
-    renderSimilarAdverts: renderSimilarAdverts
+    renderPopup: renderPopup
   };
 })();
 
