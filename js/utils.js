@@ -18,13 +18,13 @@
     }
   }
 
-  function shuffleAndReturnArrayWithRandomLength(array) {
+  function shuffleAndReturnArray(array, expectedLength) {
     var shuffled = array.slice().sort(
         function () {
           return 0.5 - Math.random();
         });
 
-    return shuffled.slice(0, getRandomArbitrary(1, array.length));
+    return shuffled.slice(0, expectedLength);
   }
 
   function findObjectValue(object, value) {
@@ -40,7 +40,7 @@
     getRandomArrayItem: getRandomArrayItem,
     getRandomArbitrary: getRandomArbitrary,
     removeItemFromArray: removeItemFromArray,
-    shuffleAndReturnArrayWithRandomLength: shuffleAndReturnArrayWithRandomLength,
+    shuffleAndReturnArray: shuffleAndReturnArray,
     findObjectValue: findObjectValue
   };
 })();

@@ -4,7 +4,7 @@
   var pinTemplate = document.querySelector('#pin');
   var pinsMap = document.querySelector('.map__pins');
 
-  var similarAdverts = [];
+  var advertsToRender = [];
 
   function renderPin(advert, fragment) {
     var pinTemplateForeRender = pinTemplate.content.cloneNode(true);
@@ -24,10 +24,15 @@
 
   function getSimilarAdverts(data) {
     window.advert.similarAdverts = data;
+
+    window.pin.advertsToRender = window.utils.shuffleAndReturnArray(
+        data,
+        window.data.maxAdverts
+    );
   }
 
   function setupMockData() {
-    similarAdverts = window.advert.similarAdverts;
+    advertsToRender = window.advert.similarAdverts;
   }
 
   function renderSimilarPins(adverts) {
@@ -63,6 +68,6 @@
   window.pin = {
     removeSimilarPinsFromPage: removeSimilarPinsFromPage,
     renderSimilarPins: renderSimilarPins,
-    similarAdverts: similarAdverts
+    advertsToRender: advertsToRender
   };
 })();

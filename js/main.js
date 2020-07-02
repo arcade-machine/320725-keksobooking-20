@@ -10,8 +10,15 @@
     window.formModule.activateForm();
     window.mainPinModule.setUpAddressLocation(window.data.isPageActive);
 
+    console.log(window.pin.advertsToRender);
     window.pin.renderSimilarPins(
-        window.advert.similarAdverts
+        window.pin.advertsToRender
+    );
+
+    window.filterModule.filterForSelect(
+      '',
+      window.advert.similarAdverts,
+
     );
   }
 

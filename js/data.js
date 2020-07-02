@@ -34,11 +34,14 @@
   };
 
   var isPageActive = false;
+  var MAXIMUM_ADVERTS_AMOUNT_ON_PAGE = 5;
+
 
   window.data = {
     houseData: houseData,
     mapData: mapData,
     advertData: advertData,
-    isPageActive: isPageActive
+    isPageActive: isPageActive,
+    maxAdverts: MAXIMUM_ADVERTS_AMOUNT_ON_PAGE
   };
 })();
