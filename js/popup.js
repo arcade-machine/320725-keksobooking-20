@@ -54,7 +54,11 @@
   }
 
   function clearDOMFromPopup() {
-    mapFiltersContainer.innerHTML = '';
+    var advertPopup = document.querySelector('.map__card');
+
+    if (advertPopup) {
+      advertPopup.parentNode.removeChild(advertPopup);
+    }
   }
 
   function renderFeaturesForPopup(featureList, advertFeatureList) {
