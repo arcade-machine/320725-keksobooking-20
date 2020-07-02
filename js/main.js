@@ -20,6 +20,7 @@
 
     window.formModule.deactivateForm();
     window.mainPinModule.setUpAddressLocation(window.data.isPageActive);
+    window.pin.removeSimilarPinsFromPage();
   }
 
   sendAdvertForm.addEventListener('submit', function (evt) {

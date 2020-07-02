@@ -42,12 +42,26 @@
     );
   }
 
+  function removeSimilarPinsFromPage() {
+    var pinsOnTheMap = document.querySelectorAll('.map__pin');
+
+    pinsOnTheMap.forEach(
+        function (pin) {
+          if (pin.classList.contains('map__pin--main')) {
+            return;
+          }
+          pin.parentNode.removeChild(pin);
+        }
+    );
+  }
+
   window.backendModule.load(
       getSimilarAdverts,
       setupSimilarAdverts
   );
 
   window.pin = {
-    pinsDocumentFragment: pinsDocumentFragment
+    pinsDocumentFragment: pinsDocumentFragment,
+    removeSimilarPinsFromPage: removeSimilarPinsFromPage
   };
 })();
