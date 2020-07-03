@@ -7,6 +7,7 @@
     var formGuestInput = filterForm.elements.namedItem('housing-guests');
     var formTypeInput = filterForm.elements.namedItem('housing-type');
     var formRoomsInput = filterForm.elements.namedItem('housing-rooms');
+    var formPriceInput = filterForm.elements.namedItem('housing-price');
 
     var formFeaturesFieldset = filterForm.elements.namedItem('housing-features');
     var formFeaturesInput = formFeaturesFieldset.querySelectorAll('input[name="features"]');
@@ -20,6 +21,8 @@
         filteredArray,
         'guests'
     );
+
+    filteredArray = filterPriceSelect(formPriceInput, filteredArray);
 
     filteredArray = filterForSelect(
         formTypeInput,
@@ -70,6 +73,40 @@
             return item.offer[filteredProperty].toString() === input.value;
           }
       );
+    }
+
+    return filteredArray;
+  }
+
+  function filterPriceSelect(input, array) {
+    var filteredArray = array.slice();
+
+    switch (input.value) {
+      case 'middle':
+        filteredArray = filteredArray.filter(
+            function (item) {
+              return item.offer.price >= 10000 && item.offer.price <= 50000;
+            }
+        );
+        break;
+      case 'low':
+        filteredArray = filteredArray.filter(
+            function (item) {
+              return item.offer.price <= 10000;
+            }
+        );
+        break;
+
+      case 'high':
+        filteredArray = filteredArray.filter(
+            function (item) {
+              return item.offer.price >= 50000;
+            }
+        );
+        break;
+
+      default:
+        break;
     }
 
     return filteredArray;
