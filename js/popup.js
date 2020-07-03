@@ -89,7 +89,8 @@
   }
 
   window.popup = {
-    renderPopup: renderPopup
+    renderPopup: renderPopup,
+    clearDOMFromPopup: clearDOMFromPopup
   };
 })();
 
