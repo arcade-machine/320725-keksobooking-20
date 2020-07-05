@@ -65,12 +65,14 @@
     offer.checkout = window.utils.getRandomArrayItem(
         window.data.advertData.CHECKIN_CHECKOUT_TIME
     );
-    offer.features = window.utils.shuffleAndReturnArrayWithRandomLength(
-        window.data.advertData.FEATURES_LIST
+    offer.features = window.utils.shuffleAndReturnArray(
+        window.data.advertData.FEATURES_LIST,
+        window.data.advertData.FEATURES_LIST.length
     );
     offer.description = 'Строка с описанием';
-    offer.photos = window.utils.shuffleAndReturnArrayWithRandomLength(
-        window.data.advertData.PHOTOS_LIST
+    offer.photos = window.utils.shuffleAndReturnArray(
+        window.data.advertData.PHOTOS_LIST,
+        window.data.advertData.PHOTOS_LIST.length
     );
   }
 

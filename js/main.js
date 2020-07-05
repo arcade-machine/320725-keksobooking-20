@@ -10,9 +10,15 @@
     window.formModule.activateForm();
     window.mainPinModule.setUpAddressLocation(window.data.isPageActive);
 
-    window.popup.renderSimilarAdverts(
-        window.pin.pinsDocumentFragment
+    window.pin.renderSimilarPins(
+        window.pin.advertsToRender
     );
+
+    // window.filterModule.filterForSelect(
+    //   '',
+    //   window.advert.similarAdverts,
+    //
+    // );
   }
 
   function deactivatePage() {
@@ -20,6 +26,7 @@
 
     window.formModule.deactivateForm();
     window.mainPinModule.setUpAddressLocation(window.data.isPageActive);
+    window.pin.removeSimilarPinsFromPage();
   }
 
   sendAdvertForm.addEventListener('submit', function (evt) {

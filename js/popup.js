@@ -2,7 +2,6 @@
 
 (function () {
   var cityMap = document.querySelector('.map');
-  var pinsMap = cityMap.querySelector('.map__pins');
   var mapFiltersContainer = cityMap.querySelector('.map__filters-container');
 
   var cardTemplate = document.querySelector('#card');
@@ -54,7 +53,11 @@
   }
 
   function clearDOMFromPopup() {
-    mapFiltersContainer.innerHTML = '';
+    var advertPopup = document.querySelector('.map__card');
+
+    if (advertPopup) {
+      advertPopup.parentNode.removeChild(advertPopup);
+    }
   }
 
   function renderFeaturesForPopup(featureList, advertFeatureList) {
@@ -85,13 +88,9 @@
     photosList.appendChild(photosListFragment);
   }
 
-  function renderSimilarAdverts(fragment) {
-    pinsMap.appendChild(fragment);
-  }
-
   window.popup = {
     renderPopup: renderPopup,
-    renderSimilarAdverts: renderSimilarAdverts
+    clearDOMFromPopup: clearDOMFromPopup
   };
 })();
 

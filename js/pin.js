@@ -2,11 +2,11 @@
 
 (function () {
   var pinTemplate = document.querySelector('#pin');
-  var similarAdverts = [];
+  var pinsMap = document.querySelector('.map__pins');
 
-  var pinsDocumentFragment = new DocumentFragment();
+  var advertsToRender = [];
 
-  function renderPin(advert) {
+  function renderPin(advert, fragment) {
     var pinTemplateForeRender = pinTemplate.content.cloneNode(true);
     var pinButton = pinTemplateForeRender.querySelector('.map__pin');
     var avatarImage = pinTemplateForeRender.querySelector('img');
@@ -15,7 +15,7 @@
     pinButton.style.top = advert.location.y - pinButton.clientHeight + 'px';
     avatarImage.src = advert.author.avatar;
     avatarImage.alt = advert.offer.title;
-    pinsDocumentFragment.appendChild(pinTemplateForeRender);
+    fragment.appendChild(pinTemplateForeRender);
 
     pinButton.addEventListener('click', function () {
       window.popup.renderPopup(advert);
@@ -23,31 +23,51 @@
   }
 
   function getSimilarAdverts(data) {
-    similarAdverts = data;
+    window.advert.similarAdverts = data;
 
-    similarAdverts.forEach(
-        function (advert) {
-          renderPin(advert);
-        }
+    window.pin.advertsToRender = window.utils.shuffleAndReturnArray(
+        data,
+        window.data.maxAdverts
     );
   }
 
-  function setupSimilarAdverts() {
-    similarAdverts = window.advert.similarAdverts;
+  function setupMockData() {
+    advertsToRender = window.advert.similarAdverts;
+  }
 
-    similarAdverts.forEach(
+  function renderSimilarPins(adverts) {
+    var pinsDocumentFragment = new DocumentFragment();
+
+    adverts.forEach(
         function (advert) {
-          renderPin(advert);
+          renderPin(advert, pinsDocumentFragment);
+        }
+    );
+
+    pinsMap.appendChild(pinsDocumentFragment);
+  }
+
+  function removeSimilarPinsFromPage() {
+    var pinsOnTheMap = document.querySelectorAll('.map__pin');
+
+    pinsOnTheMap.forEach(
+        function (pin) {
+          if (pin.classList.contains('map__pin--main')) {
+            return;
+          }
+          pin.parentNode.removeChild(pin);
         }
     );
   }
 
   window.backendModule.load(
       getSimilarAdverts,
-      setupSimilarAdverts
+      setupMockData
   );
 
   window.pin = {
-    pinsDocumentFragment: pinsDocumentFragment
+    removeSimilarPinsFromPage: removeSimilarPinsFromPage,
+    renderSimilarPins: renderSimilarPins,
+    advertsToRender: advertsToRender
   };
 })();
