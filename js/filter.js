@@ -39,14 +39,9 @@
     formFeaturesInput.forEach(
         function (feature) {
           if (feature.checked) {
-            filteredArray = filteredArray.filter(
-                function (item) {
-                  return item.offer.features.includes(feature.value);
-                }
-            );
-            return filteredArray;
+            filteredArray = filterFeaturesInput(filteredArray, feature.value);
           }
-          return;
+          return filteredArray;
         }
     );
 
@@ -76,6 +71,14 @@
     }
 
     return filteredArray;
+  }
+
+  function filterFeaturesInput(array, value) {
+    return array.filter(
+        function (item) {
+          return item.offer.features.includes(value);
+        }
+    );
   }
 
   function filterPriceSelect(input, array) {
@@ -111,8 +114,4 @@
 
     return filteredArray;
   }
-
-  window.filterModule = {
-    filterForSelect: filterForSelect
-  };
 })();

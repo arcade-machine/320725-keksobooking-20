@@ -24,8 +24,19 @@
         y: mouseMove.clientY
       };
 
-      mainPin.style.top = (mainPin.offsetTop - movingCoordinates.y) + 'px';
-      mainPin.style.left = (mainPin.offsetLeft - movingCoordinates.x) + 'px';
+      var pinTopCoordinates = mainPin.offsetTop - movingCoordinates.y;
+      var pinLeftCoordinates = mainPin.offsetLeft - movingCoordinates.x;
+
+      if (pinTopCoordinates <= window.data.mapData.MINIMUM_Y_VALUE) {
+        pinTopCoordinates = window.data.mapData.MINIMUM_Y_VALUE;
+      } else if (pinTopCoordinates >= window.data.mapData.MAXIMUM_Y_VALUE) {
+        pinTopCoordinates = window.data.mapData.MAXIMUM_Y_VALUE;
+      }
+
+      mainPin.style.top = pinTopCoordinates + 'px';
+      mainPin.style.left = pinLeftCoordinates + 'px';
+
+      window.mainPinModule.setUpAddressLocation(true);
     }
 
     function onMouseUp(mouseUp) {
