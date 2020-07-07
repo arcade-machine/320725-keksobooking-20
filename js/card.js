@@ -24,17 +24,17 @@
         y: mouseMove.clientY
       };
 
-      var pinTopCoorditantes = mainPin.offsetTop - movingCoordinates.y;
-      var pinLeftCoorditantes = mainPin.offsetLeft - movingCoordinates.x;
+      var pinTopCoordinates = mainPin.offsetTop - movingCoordinates.y;
+      var pinLeftCoordinates = mainPin.offsetLeft - movingCoordinates.x;
 
-      if (pinTopCoorditantes <= window.data.mapData.MINIMUM_Y_VALUE) {
-        pinTopCoorditantes = window.data.mapData.MINIMUM_Y_VALUE;
-      } else if (pinTopCoorditantes >= window.data.mapData.MAXIMUM_Y_VALUE) {
-        pinTopCoorditantes = window.data.mapData.MAXIMUM_Y_VALUE;
+      if (pinTopCoordinates <= window.data.mapData.MINIMUM_Y_VALUE) {
+        pinTopCoordinates = window.data.mapData.MINIMUM_Y_VALUE;
+      } else if (pinTopCoordinates >= window.data.mapData.MAXIMUM_Y_VALUE) {
+        pinTopCoordinates = window.data.mapData.MAXIMUM_Y_VALUE;
       }
 
-      mainPin.style.top = pinTopCoorditantes + 'px';
-      mainPin.style.left = pinLeftCoorditantes + 'px';
+      mainPin.style.top = pinTopCoordinates + 'px';
+      mainPin.style.left = pinLeftCoordinates + 'px';
 
       window.mainPinModule.setUpAddressLocation(true);
     }
