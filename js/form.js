@@ -6,6 +6,8 @@
   var checkoutSelect = sendAdvertForm.querySelector('#timeout');
   var typeOfHouse = sendAdvertForm.querySelector('#type');
   var priceForNight = sendAdvertForm.querySelector('#price');
+  var roomNumber = sendAdvertForm.querySelector('#room_number');
+  var capacity = sendAdvertForm.querySelector('#capacity');
 
   var cityMap = document.querySelector('.map');
   var mapFiltersContainer = cityMap.querySelector('.map__filters-container');
@@ -14,6 +16,13 @@
   var filterSelects = mapFiltersForm.querySelectorAll('select');
   var filtersFeatures = mapFiltersForm.querySelectorAll('fieldset');
   var addressInput = sendAdvertForm.querySelector('#address');
+
+  var CAPACITY_OPTIONS = [
+    {value: 0, text: 'не для гостей'},
+    {value: 1, text: 'для 1 гостя'},
+    {value: 2, text: 'для 2 гостей'},
+    {value: 3, text: 'для 3 гостей'}
+  ];
 
   addressInput.readOnly = true;
 
@@ -30,6 +39,10 @@
 
     priceForNight.min = minimumPrice;
     priceForNight.placeholder = minimumPrice;
+  });
+
+  roomNumber.addEventListener('input', function () {
+    renderCapacityOptions(+roomNumber.value);
   });
 
   function disableOrActivateForm(shouldItBeDisabled) {
@@ -53,6 +66,32 @@
         }
     );
   }
+
+  function renderCapacityOptions(roomsCount) {
+    var availableOptions = CAPACITY_OPTIONS.filter(
+        function (option) {
+          if (roomsCount === 100) {
+            return option.value === 0;
+          }
+          return option.value <= roomsCount && option.value !== 0;
+        }
+    );
+    var optionsDocumentFragment = new DocumentFragment();
+
+    availableOptions.forEach(
+        function (option) {
+          var optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.innerHTML = option.text;
+          optionsDocumentFragment.appendChild(optionElement);
+        }
+    );
+
+    capacity.innerHTML = '';
+    capacity.appendChild(optionsDocumentFragment);
+  }
+
+  renderCapacityOptions(1);
 
   disableOrActivateForm(true);
 
