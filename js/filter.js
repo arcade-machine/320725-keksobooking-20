@@ -111,8 +111,4 @@
 
     return filteredArray;
   }
-
-  window.filterModule = {
-    filterForSelect: filterForSelect
-  };
 })();

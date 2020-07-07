@@ -13,12 +13,6 @@
     window.pin.renderSimilarPins(
         window.pin.advertsToRender
     );
-
-    // window.filterModule.filterForSelect(
-    //   '',
-    //   window.advert.similarAdverts,
-    //
-    // );
   }
 
   function deactivatePage() {
