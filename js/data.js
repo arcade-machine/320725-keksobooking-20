@@ -25,9 +25,9 @@
     MINIMUM_X_VALUE: 0
   };
 
+  var PIN_POINT_HEIGHT = 16;
   var isPageActive = false;
   var MAXIMUM_ADVERTS_AMOUNT_ON_PAGE = 5;
-  var PIN_POINT_HEIGHT = 16;
 
   window.data = {
     houseData: houseData,

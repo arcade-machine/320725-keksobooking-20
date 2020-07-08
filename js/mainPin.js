@@ -33,10 +33,13 @@
       var pinTopCoordinates = mainPin.offsetTop - movingCoordinates.y;
       var pinLeftCoordinates = mainPin.offsetLeft - movingCoordinates.x;
 
-      if (pinTopCoordinates <= window.data.mapData.MINIMUM_Y_VALUE) {
-        pinTopCoordinates = window.data.mapData.MINIMUM_Y_VALUE;
-      } else if (pinTopCoordinates >= window.data.mapData.MAXIMUM_Y_VALUE) {
-        pinTopCoordinates = window.data.mapData.MAXIMUM_Y_VALUE;
+      var minimumTopCoordinates = window.data.mapData.MINIMUM_Y_VALUE - mainPin.clientHeight - window.data.pinPointHeight;
+      var maximumTopCoordinates = window.data.mapData.MAXIMUM_Y_VALUE - mainPin.clientHeight - window.data.pinPointHeight;
+
+      if (pinTopCoordinates <= minimumTopCoordinates) {
+        pinTopCoordinates = minimumTopCoordinates;
+      } else if (pinTopCoordinates >= maximumTopCoordinates) {
+        pinTopCoordinates = maximumTopCoordinates;
       }
 
       mainPin.style.top = pinTopCoordinates + 'px';
