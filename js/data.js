@@ -25,14 +25,6 @@
     MINIMUM_X_VALUE: 0
   };
 
-  var advertData = {
-    ADVERT_AMOUNT: 8,
-    IMAGES_PATHS: ['01', '02', '03', '04', '05', '06', '07', '08'],
-    FEATURES_LIST: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-    CHECKIN_CHECKOUT_TIME: ['12:00', '13:00', '14:00'],
-    PHOTOS_LIST: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-  };
-
   var isPageActive = false;
   var MAXIMUM_ADVERTS_AMOUNT_ON_PAGE = 5;
   var PIN_POINT_HEIGHT = 16;
@@ -40,7 +32,6 @@
   window.data = {
     houseData: houseData,
     mapData: mapData,
-    advertData: advertData,
     isPageActive: isPageActive,
     maxAdverts: MAXIMUM_ADVERTS_AMOUNT_ON_PAGE,
     pinPointHeight: PIN_POINT_HEIGHT

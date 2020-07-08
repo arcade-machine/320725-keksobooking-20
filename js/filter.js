@@ -12,7 +12,7 @@
     var formFeaturesFieldset = filterForm.elements.namedItem('housing-features');
     var formFeaturesInput = formFeaturesFieldset.querySelectorAll('input[name="features"]');
 
-    var filteredArray = window.advert.similarAdverts.slice();
+    var filteredArray = window.pin.similarAdverts.slice();
 
     window.pin.removeSimilarPinsFromPage();
 

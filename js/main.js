@@ -11,10 +11,7 @@
 
     window.formModule.activateForm();
     window.mainPinModule.setUpAddressLocation(window.data.isPageActive);
-
-    window.pin.renderSimilarPins(
-        window.pin.advertsToRender
-    );
+    window.pin.setupSimilarAdverts();
 
     resetFormButton.addEventListener('click', deactivatePage);
   }
