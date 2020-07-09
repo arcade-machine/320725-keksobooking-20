@@ -68,9 +68,11 @@
   }
 
   function renderCapacityOptions(roomsCount) {
+    var NOT_FOR_GUESTS_ROOMS_COUNT = 100;
+
     var availableOptions = CAPACITY_OPTIONS.filter(
         function (option) {
-          if (roomsCount === 100) {
+          if (roomsCount === NOT_FOR_GUESTS_ROOMS_COUNT) {
             return option.value === 0;
           }
           return option.value <= roomsCount && option.value !== 0;
@@ -91,7 +93,7 @@
     capacity.appendChild(optionsDocumentFragment);
   }
 
-  renderCapacityOptions(1);
+  renderCapacityOptions(+roomNumber.value);
 
   disableOrActivateForm(true);
 

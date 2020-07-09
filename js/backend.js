@@ -10,7 +10,7 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === window.dataModule.statusOptions.SUCCESS_REQUEST) {
         onSuccess(xhr.response);
       } else {
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -25,7 +25,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000; // 10s
+    xhr.timeout = window.dataModule.statusOptions.TIMEOUT;
 
     xhr.open('GET', dataURL);
     xhr.send();
@@ -36,7 +36,7 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === window.dataModule.statusOptions.SUCCESS_REQUEST) {
         onSuccess(xhr.response);
       } else {
         onError('Произошла ошибка соединения');

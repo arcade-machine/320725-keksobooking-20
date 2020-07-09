@@ -88,14 +88,15 @@
       case 'middle':
         filteredArray = filteredArray.filter(
             function (item) {
-              return item.offer.price >= 10000 && item.offer.price <= 50000;
+              return item.offer.price >= window.dataModule.houseData.HOUSE_PRICE_RANGE.middle &&
+                item.offer.price <= window.dataModule.houseData.HOUSE_PRICE_RANGE.high;
             }
         );
         break;
       case 'low':
         filteredArray = filteredArray.filter(
             function (item) {
-              return item.offer.price <= 10000;
+              return item.offer.price < window.dataModule.houseData.HOUSE_PRICE_RANGE.middle;
             }
         );
         break;
@@ -103,7 +104,7 @@
       case 'high':
         filteredArray = filteredArray.filter(
             function (item) {
-              return item.offer.price >= 50000;
+              return item.offer.price > window.dataModule.houseData.HOUSE_PRICE_RANGE.high;
             }
         );
         break;
