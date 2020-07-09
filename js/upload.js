@@ -6,7 +6,19 @@
   var sendAdvertForm = document.querySelector('.ad-form');
 
   var avatarInput = sendAdvertForm.querySelector('#avatar');
+  var defaultAvatarImage = sendAdvertForm.querySelector('.ad-form-header__preview img').cloneNode(true);
+
   var photoInput = sendAdvertForm.querySelector('#images');
+
+  function resetPhotoPreviews() {
+    var avatarPreview = sendAdvertForm.querySelector('.ad-form-header__preview');
+    var photoPreview = sendAdvertForm.querySelector('.ad-form__photo');
+
+    avatarPreview.innerHTML = '';
+    photoPreview.innerHTML = '';
+
+    avatarPreview.appendChild(defaultAvatarImage);
+  }
 
   function setupPhotoInputListeners() {
     avatarInput.addEventListener('change', uploadFiles);
@@ -63,6 +75,7 @@
 
   window.uploadModule = {
     setupPhotoInputListeners: setupPhotoInputListeners,
-    removePhotoInputListeners: removePhotoInputListeners
+    removePhotoInputListeners: removePhotoInputListeners,
+    resetPhotoPreviews: resetPhotoPreviews
   };
 })();

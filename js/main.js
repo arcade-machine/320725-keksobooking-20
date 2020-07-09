@@ -31,6 +31,7 @@
     window.pinModule.removeSimilarPinsFromPage();
     window.filterModule.setupOrRemoveEventsForForm();
     window.uploadModule.removePhotoInputListeners();
+    window.uploadModule.resetPhotoPreviews();
 
     sendAdvertForm.removeEventListener('submit', onSubmitForm);
     resetFormButton.removeEventListener('click', deactivatePage);
