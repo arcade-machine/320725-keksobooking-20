@@ -6,34 +6,24 @@
   var sendAdvertForm = document.querySelector('.ad-form');
 
   var avatarInput = sendAdvertForm.querySelector('#avatar');
-  var avatarPreview = sendAdvertForm.querySelector('.ad-form-header__preview img');
-
   var photoInput = sendAdvertForm.querySelector('#images');
-  var photoPreview = sendAdvertForm.querySelector('.ad-form__photo');
 
-  avatarInput.addEventListener('change', function () {
-    var file = avatarInput.files[0];
-    var fileName = file.name.toLowerCase();
+  avatarInput.addEventListener('change', uploadFiles);
+  photoInput.addEventListener('change', uploadFiles);
 
-    var ifMatches = FILE_TYPES.some(
-        function (fileType) {
-          return fileName.endsWith(fileType);
-        }
-    );
+  function uploadFiles(evt) {
+    var previewContainer;
 
-    if (ifMatches) {
-      var fileReader = new FileReader();
-
-      fileReader.addEventListener('load', function () {
-        avatarPreview.src = fileReader.result;
-      });
-
-      fileReader.readAsDataURL(file);
+    switch (evt.target) {
+      case avatarInput:
+        previewContainer = sendAdvertForm.querySelector('.ad-form-header__preview');
+        break;
+      case photoInput:
+        previewContainer = sendAdvertForm.querySelector('.ad-form__photo');
+        break;
     }
-  });
 
-  photoInput.addEventListener('change', function () {
-    var file = photoInput.files[0];
+    var file = evt.target.files[0];
     var fileName = file.name.toLowerCase();
 
     var ifMatches = FILE_TYPES.some(
@@ -46,18 +36,22 @@
       var fileReader = new FileReader();
 
       fileReader.addEventListener('load', function () {
+        var maximumImageWidth = previewContainer.clientWidth;
+        var maximumImageHeight = previewContainer.clientHeight;
+
         var image = document.createElement('img');
-        var maximumImageWidth = photoPreview.clientWidth;
-        var maximumImageHeight = photoPreview.clientHeight;
+
+        previewContainer.innerHTML = '';
 
         image.src = fileReader.result;
         image.width = maximumImageWidth;
         image.height = maximumImageHeight;
-        photoPreview.appendChild(image);
+
+        previewContainer.appendChild(image);
       });
 
       fileReader.readAsDataURL(file);
     }
-  });
+  }
 
 })();
