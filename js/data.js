@@ -15,6 +15,11 @@
       flat: 1000,
       house: 5000,
       bungalo: 0
+    },
+    HOUSE_PRICE_RANGE: {
+      minimum: 0,
+      middle: 10000,
+      high: 50000
     }
   };
 
@@ -25,24 +30,21 @@
     MINIMUM_X_VALUE: 0
   };
 
-  var advertData = {
-    ADVERT_AMOUNT: 8,
-    IMAGES_PATHS: ['01', '02', '03', '04', '05', '06', '07', '08'],
-    FEATURES_LIST: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-    CHECKIN_CHECKOUT_TIME: ['12:00', '13:00', '14:00'],
-    PHOTOS_LIST: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
+  var statusOptions = {
+    SUCCESS_REQUEST: 200,
+    TIMEOUT: 10000
   };
 
+  var PIN_POINT_HEIGHT = 16;
   var isPageActive = false;
   var MAXIMUM_ADVERTS_AMOUNT_ON_PAGE = 5;
-  var PIN_POINT_HEIGHT = 16;
 
-  window.data = {
+  window.dataModule = {
     houseData: houseData,
     mapData: mapData,
-    advertData: advertData,
     isPageActive: isPageActive,
     maxAdverts: MAXIMUM_ADVERTS_AMOUNT_ON_PAGE,
-    pinPointHeight: PIN_POINT_HEIGHT
+    pinPointHeight: PIN_POINT_HEIGHT,
+    statusOptions: statusOptions
   };
 })();

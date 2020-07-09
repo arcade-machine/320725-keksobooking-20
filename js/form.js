@@ -24,26 +24,30 @@
     {value: 3, text: 'для 3 гостей'}
   ];
 
+  disableOrActivateForm(true);
+  renderCapacityOptions(+roomNumber.value);
   addressInput.readOnly = true;
 
-  checkinSelect.addEventListener('input', function () {
-    checkoutSelect.value = checkinSelect.value;
-  });
+  function setupEventsForAdvertFrom() {
+    checkinSelect.addEventListener('input', function () {
+      checkoutSelect.value = checkinSelect.value;
+    });
 
-  checkoutSelect.addEventListener('input', function () {
-    checkinSelect.value = checkoutSelect.value;
-  });
+    checkoutSelect.addEventListener('input', function () {
+      checkinSelect.value = checkoutSelect.value;
+    });
 
-  typeOfHouse.addEventListener('input', function () {
-    var minimumPrice = window.data.houseData.HOUSE_MINIMAL_PRICES[typeOfHouse.value];
+    typeOfHouse.addEventListener('input', function () {
+      var minimumPrice = window.dataModule.houseData.HOUSE_MINIMAL_PRICES[typeOfHouse.value];
 
-    priceForNight.min = minimumPrice;
-    priceForNight.placeholder = minimumPrice;
-  });
+      priceForNight.min = minimumPrice;
+      priceForNight.placeholder = minimumPrice;
+    });
 
-  roomNumber.addEventListener('input', function () {
-    renderCapacityOptions(+roomNumber.value);
-  });
+    roomNumber.addEventListener('input', function () {
+      renderCapacityOptions(+roomNumber.value);
+    });
+  }
 
   function disableOrActivateForm(shouldItBeDisabled) {
     addressInput.disabled = shouldItBeDisabled;
@@ -68,9 +72,11 @@
   }
 
   function renderCapacityOptions(roomsCount) {
+    var NOT_FOR_GUESTS_ROOMS_COUNT = 100;
+
     var availableOptions = CAPACITY_OPTIONS.filter(
         function (option) {
-          if (roomsCount === 100) {
+          if (roomsCount === NOT_FOR_GUESTS_ROOMS_COUNT) {
             return option.value === 0;
           }
           return option.value <= roomsCount && option.value !== 0;
@@ -91,13 +97,10 @@
     capacity.appendChild(optionsDocumentFragment);
   }
 
-  renderCapacityOptions(1);
-
-  disableOrActivateForm(true);
-
   function activateForm() {
     cityMap.classList.remove('map--faded');
     sendAdvertForm.classList.remove('ad-form--disabled');
+    sendAdvertForm.addEventListener('change', setupEventsForAdvertFrom);
     disableOrActivateForm(false);
   }
 
@@ -105,6 +108,7 @@
     cityMap.classList.add('map--faded');
     sendAdvertForm.classList.add('ad-form--disabled');
     sendAdvertForm.reset();
+    sendAdvertForm.removeEventListener('change', setupEventsForAdvertFrom);
     disableOrActivateForm(true);
   }
 

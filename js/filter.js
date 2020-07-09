@@ -3,7 +3,15 @@
 (function () {
   var filterForm = document.querySelector('.map__filters');
 
-  filterForm.addEventListener('change', function () {
+  function setupOrRemoveEventsForForm() {
+    if (window.dataModule.isPageActive) {
+      filterForm.addEventListener('change', setupEvents);
+      return;
+    }
+    filterForm.removeEventListener('change', setupEvents);
+  }
+
+  function setupEvents() {
     var formGuestInput = filterForm.elements.namedItem('housing-guests');
     var formTypeInput = filterForm.elements.namedItem('housing-type');
     var formRoomsInput = filterForm.elements.namedItem('housing-rooms');
@@ -12,9 +20,9 @@
     var formFeaturesFieldset = filterForm.elements.namedItem('housing-features');
     var formFeaturesInput = formFeaturesFieldset.querySelectorAll('input[name="features"]');
 
-    var filteredArray = window.advert.similarAdverts.slice();
+    var filteredArray = window.pinModule.similarAdverts.slice();
 
-    window.pin.removeSimilarPinsFromPage();
+    window.pinModule.removeSimilarPinsFromPage();
 
     filteredArray = filterForSelect(
         formGuestInput,
@@ -45,19 +53,19 @@
         }
     );
 
-    window.popup.clearDOMFromPopup();
+    window.popupModule.clearDOMFromPopup();
 
-    if (filteredArray.length >= window.data.maxAdverts) {
-      window.pin.advertsToRender = window.utils.shuffleAndReturnArray(
+    if (filteredArray.length >= window.dataModule.maxAdverts) {
+      window.pinModule.advertsToRender = window.utilsModule.shuffleAndReturnArray(
           filteredArray,
-          window.data.maxAdverts
+          window.dataModule.maxAdverts
       );
     } else {
-      window.pin.advertsToRender = filteredArray;
+      window.pinModule.advertsToRender = filteredArray;
     }
 
-    window.pin.renderSimilarPins(window.pin.advertsToRender);
-  });
+    window.pinModule.renderSimilarPins(window.pinModule.advertsToRender);
+  }
 
   function filterForSelect(input, array, filteredProperty) {
     var filteredArray = array.slice();
@@ -88,14 +96,15 @@
       case 'middle':
         filteredArray = filteredArray.filter(
             function (item) {
-              return item.offer.price >= 10000 && item.offer.price <= 50000;
+              return item.offer.price >= window.dataModule.houseData.HOUSE_PRICE_RANGE.middle &&
+                item.offer.price <= window.dataModule.houseData.HOUSE_PRICE_RANGE.high;
             }
         );
         break;
       case 'low':
         filteredArray = filteredArray.filter(
             function (item) {
-              return item.offer.price <= 10000;
+              return item.offer.price < window.dataModule.houseData.HOUSE_PRICE_RANGE.middle;
             }
         );
         break;
@@ -103,7 +112,7 @@
       case 'high':
         filteredArray = filteredArray.filter(
             function (item) {
-              return item.offer.price >= 50000;
+              return item.offer.price > window.dataModule.houseData.HOUSE_PRICE_RANGE.high;
             }
         );
         break;
@@ -114,4 +123,8 @@
 
     return filteredArray;
   }
+
+  window.filterModule = {
+    setupOrRemoveEventsForForm: setupOrRemoveEventsForForm
+  };
 })();

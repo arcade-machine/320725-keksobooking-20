@@ -30,8 +30,8 @@
     popupTitle.innerHTML = advert.offer.title;
     popupPrice.innerHTML = advert.offer.price + '₽/ночь';
     popupAddress.innerHTML = advert.offer.address;
-    popupType.innerHTML = window.utils.findObjectValue(
-        window.data.houseData.HOUSE_TYPES,
+    popupType.innerHTML = window.utilsModule.findObjectValue(
+        window.dataModule.houseData.HOUSE_TYPES,
         advert.offer.type
     );
     popupCapacity.innerHeight = advert.offer.rooms + ' комнаты для' + advert.offer.guests + ' гостей';
@@ -41,15 +41,17 @@
     renderAdvertPhotos(popupPhotos, advert.offer.photos);
     popupAvatar.src = advert.author.avatar;
 
-    popupCloseButton.addEventListener('click', clearDOMFromPopup);
-    document.addEventListener('keydown', function (evt) {
-      if (evt.key === 'Escape') {
-        clearDOMFromPopup();
-      }
-    });
+    popupCloseButton.addEventListener('click', clearDOMFromPopup, {once: true});
+    document.addEventListener('keydown', onEscape);
 
     popupDocumentFragment.appendChild(renderPopupTemplate);
     mapFiltersContainer.appendChild(popupDocumentFragment);
+  }
+
+  function onEscape(evt) {
+    if (evt.key === 'Escape') {
+      clearDOMFromPopup();
+    }
   }
 
   function clearDOMFromPopup() {
@@ -58,6 +60,8 @@
     if (advertPopup) {
       advertPopup.parentNode.removeChild(advertPopup);
     }
+
+    document.removeEventListener('keydown', onEscape);
   }
 
   function renderFeaturesForPopup(featureList, advertFeatureList) {
@@ -74,13 +78,16 @@
   }
 
   function renderAdvertPhotos(photosList, advertPhotosList) {
+    var IMAGE_WIDTH = 45;
+    var IMAGE_HEIGHT = 40;
     var photosListFragment = new DocumentFragment();
+
     advertPhotosList.forEach(
         function (photo) {
           var photoImage = document.createElement('img');
           photoImage.className = 'popup__photo';
-          photoImage.width = 45;
-          photoImage.height = 40;
+          photoImage.width = IMAGE_WIDTH;
+          photoImage.height = IMAGE_HEIGHT;
           photoImage.src = photo;
           photosListFragment.appendChild(photoImage);
         }
@@ -88,7 +95,7 @@
     photosList.appendChild(photosListFragment);
   }
 
-  window.popup = {
+  window.popupModule = {
     renderPopup: renderPopup,
     clearDOMFromPopup: clearDOMFromPopup
   };

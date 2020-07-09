@@ -4,6 +4,7 @@
   var pinTemplate = document.querySelector('#pin');
   var pinsMap = document.querySelector('.map__pins');
 
+  var similarAdverts = [];
   var advertsToRender = [];
 
   function renderPin(advert, fragment) {
@@ -18,21 +19,37 @@
     fragment.appendChild(pinTemplateForeRender);
 
     pinButton.addEventListener('click', function () {
-      window.popup.renderPopup(advert);
+      window.popupModule.renderPopup(advert);
     });
   }
 
-  function getSimilarAdverts(data) {
-    window.advert.similarAdverts = data;
-
-    window.pin.advertsToRender = window.utils.shuffleAndReturnArray(
-        data,
-        window.data.maxAdverts
+  function setupSimilarAdverts() {
+    window.backendModule.load(
+        setupAdvertsToRender,
+        errorHandler
     );
   }
 
-  function setupMockData() {
-    advertsToRender = window.advert.similarAdverts;
+  function errorHandler(errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+    node.textContent = errorMessage;
+    node.style.color = 'white';
+    document.body.insertAdjacentElement('afterbegin', node);
+  }
+
+  function setupAdvertsToRender(data) {
+    window.pinModule.similarAdverts = data;
+    advertsToRender = window.utilsModule.shuffleAndReturnArray(
+        data,
+        window.dataModule.maxAdverts
+    );
+
+    renderSimilarPins(advertsToRender);
   }
 
   function renderSimilarPins(adverts) {
@@ -60,14 +77,11 @@
     );
   }
 
-  window.backendModule.load(
-      getSimilarAdverts,
-      setupMockData
-  );
-
-  window.pin = {
+  window.pinModule = {
     removeSimilarPinsFromPage: removeSimilarPinsFromPage,
     renderSimilarPins: renderSimilarPins,
+    setupSimilarAdverts: setupSimilarAdverts,
+    similarAdverts: similarAdverts,
     advertsToRender: advertsToRender
   };
 })();

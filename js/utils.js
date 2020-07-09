@@ -36,7 +36,7 @@
     return Object.values(missingObject);
   }
 
-  window.utils = {
+  window.utilsModule = {
     getRandomArrayItem: getRandomArrayItem,
     getRandomArbitrary: getRandomArbitrary,
     removeItemFromArray: removeItemFromArray,
