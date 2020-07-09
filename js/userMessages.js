@@ -10,12 +10,12 @@
     var successPopup = successPopupTemplate.querySelector('.success');
 
     function removePopupFromPage(evt) {
-      if (evt.key === 'Escape') {
+      if (evt.key === 'Escape' || evt.button === 0) {
         successPopup.parentNode.removeChild(successPopup);
-      }
 
-      document.removeEventListener('keydown', removePopupFromPage);
-      successPopup.removeEventListener('click', removePopupFromPage);
+        document.removeEventListener('keydown', removePopupFromPage);
+        successPopup.removeEventListener('click', removePopupFromPage);
+      }
     }
 
     mainContainer.appendChild(successPopup);
@@ -29,15 +29,13 @@
 
     mainContainer.appendChild(errorPopup);
 
-    errorPopup.addEventListener('click', removePopupFromPage);
-
     function removePopupFromPage(evt) {
       if (evt.key === 'Escape' || evt.button === 0) {
         errorPopup.parentNode.removeChild(errorPopup);
-      }
 
-      document.removeEventListener('keydown', removePopupFromPage);
-      errorPopup.removeEventListener('click', removePopupFromPage);
+        document.removeEventListener('keydown', removePopupFromPage);
+        errorPopup.removeEventListener('click', removePopupFromPage);
+      }
     }
 
     errorPopup.addEventListener('click', removePopupFromPage);
