@@ -33,8 +33,8 @@
       var pinTopCoordinates = mainPin.offsetTop - movingCoordinates.y;
       var pinLeftCoordinates = mainPin.offsetLeft - movingCoordinates.x;
 
-      var minimumTopCoordinates = window.data.mapData.MINIMUM_Y_VALUE - mainPin.clientHeight - window.data.pinPointHeight;
-      var maximumTopCoordinates = window.data.mapData.MAXIMUM_Y_VALUE - mainPin.clientHeight - window.data.pinPointHeight;
+      var minimumTopCoordinates = window.dataModule.mapData.MINIMUM_Y_VALUE - mainPin.clientHeight - window.dataModule.pinPointHeight;
+      var maximumTopCoordinates = window.dataModule.mapData.MAXIMUM_Y_VALUE - mainPin.clientHeight - window.dataModule.pinPointHeight;
 
       if (pinTopCoordinates <= minimumTopCoordinates) {
         pinTopCoordinates = minimumTopCoordinates;
@@ -65,7 +65,7 @@
 
     var addressX = Math.floor(leftPosition + mainPin.clientWidth / 2);
     var addressY = isPageActive
-      ? Math.floor(topPosition + mainPin.clientHeight + window.data.pinPointHeight)
+      ? Math.floor(topPosition + mainPin.clientHeight + window.dataModule.pinPointHeight)
       : Math.floor(topPosition + mainPin.clientHeight / 2);
 
     addressInput.value = addressX + ', ' + addressY;

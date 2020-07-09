@@ -38,7 +38,7 @@
     });
   }
 
-  window.userMessages = {
+  window.userMessagesModule = {
     renderSuccessMessage: renderSuccessMessage,
     renderFailMessage: renderFailMessage
   };

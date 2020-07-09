@@ -12,9 +12,9 @@
     var formFeaturesFieldset = filterForm.elements.namedItem('housing-features');
     var formFeaturesInput = formFeaturesFieldset.querySelectorAll('input[name="features"]');
 
-    var filteredArray = window.pin.similarAdverts.slice();
+    var filteredArray = window.pinModule.similarAdverts.slice();
 
-    window.pin.removeSimilarPinsFromPage();
+    window.pinModule.removeSimilarPinsFromPage();
 
     filteredArray = filterForSelect(
         formGuestInput,
@@ -45,18 +45,18 @@
         }
     );
 
-    window.popup.clearDOMFromPopup();
+    window.popupModule.clearDOMFromPopup();
 
-    if (filteredArray.length >= window.data.maxAdverts) {
-      window.pin.advertsToRender = window.utils.shuffleAndReturnArray(
+    if (filteredArray.length >= window.dataModule.maxAdverts) {
+      window.pinModule.advertsToRender = window.utilsModule.shuffleAndReturnArray(
           filteredArray,
-          window.data.maxAdverts
+          window.dataModule.maxAdverts
       );
     } else {
-      window.pin.advertsToRender = filteredArray;
+      window.pinModule.advertsToRender = filteredArray;
     }
 
-    window.pin.renderSimilarPins(window.pin.advertsToRender);
+    window.pinModule.renderSimilarPins(window.pinModule.advertsToRender);
   });
 
   function filterForSelect(input, array, filteredProperty) {

@@ -7,22 +7,22 @@
   var resetFormButton = sendAdvertForm.querySelector('.ad-form__reset');
 
   function activatePage() {
-    window.data.isPageActive = true;
+    window.dataModule.isPageActive = true;
 
     window.formModule.activateForm();
-    window.mainPinModule.setUpAddressLocation(window.data.isPageActive);
-    window.pin.setupSimilarAdverts();
+    window.mainPinModule.setUpAddressLocation(window.dataModule.isPageActive);
+    window.pinModule.setupSimilarAdverts();
 
     resetFormButton.addEventListener('click', deactivatePage);
   }
 
   function deactivatePage() {
-    window.data.isPageActive = false;
+    window.dataModule.isPageActive = false;
 
     window.formModule.deactivateForm();
     window.mainPinModule.setPinToDefaultStatus();
-    window.mainPinModule.setUpAddressLocation(window.data.isPageActive);
-    window.pin.removeSimilarPinsFromPage();
+    window.mainPinModule.setUpAddressLocation(window.dataModule.isPageActive);
+    window.pinModule.removeSimilarPinsFromPage();
 
     resetFormButton.removeEventListener('click', deactivatePage);
   }
@@ -33,11 +33,11 @@
     window.backendModule.save(
         formData,
         function () {
-          window.userMessages.renderSuccessMessage();
+          window.userMessagesModule.renderSuccessMessage();
           deactivatePage();
         },
         function () {
-          window.userMessages.renderFailMessage();
+          window.userMessagesModule.renderFailMessage();
         }
     );
 
@@ -45,14 +45,14 @@
   });
 
   mainPin.addEventListener('mousedown', function (evt) {
-    if (evt.button === 0 && !window.data.isPageActive) {
+    if (evt.button === 0 && !window.dataModule.isPageActive) {
       evt.preventDefault();
       activatePage();
     }
   });
 
   mainPin.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter' && !window.data.isPageActive) {
+    if (evt.key === 'Enter' && !window.dataModule.isPageActive) {
       evt.preventDefault();
       activatePage();
     }

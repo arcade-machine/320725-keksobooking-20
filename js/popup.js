@@ -30,8 +30,8 @@
     popupTitle.innerHTML = advert.offer.title;
     popupPrice.innerHTML = advert.offer.price + '₽/ночь';
     popupAddress.innerHTML = advert.offer.address;
-    popupType.innerHTML = window.utils.findObjectValue(
-        window.data.houseData.HOUSE_TYPES,
+    popupType.innerHTML = window.utilsModule.findObjectValue(
+        window.dataModule.houseData.HOUSE_TYPES,
         advert.offer.type
     );
     popupCapacity.innerHeight = advert.offer.rooms + ' комнаты для' + advert.offer.guests + ' гостей';
@@ -88,7 +88,7 @@
     photosList.appendChild(photosListFragment);
   }
 
-  window.popup = {
+  window.popupModule = {
     renderPopup: renderPopup,
     clearDOMFromPopup: clearDOMFromPopup
   };

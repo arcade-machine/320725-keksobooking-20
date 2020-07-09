@@ -35,7 +35,7 @@
   });
 
   typeOfHouse.addEventListener('input', function () {
-    var minimumPrice = window.data.houseData.HOUSE_MINIMAL_PRICES[typeOfHouse.value];
+    var minimumPrice = window.dataModule.houseData.HOUSE_MINIMAL_PRICES[typeOfHouse.value];
 
     priceForNight.min = minimumPrice;
     priceForNight.placeholder = minimumPrice;

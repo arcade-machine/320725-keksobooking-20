@@ -19,7 +19,7 @@
     fragment.appendChild(pinTemplateForeRender);
 
     pinButton.addEventListener('click', function () {
-      window.popup.renderPopup(advert);
+      window.popupModule.renderPopup(advert);
     });
   }
 
@@ -43,10 +43,10 @@
   }
 
   function setupAdvertsToRender(data) {
-    window.pin.similarAdverts = data;
-    advertsToRender = window.utils.shuffleAndReturnArray(
+    window.pinModule.similarAdverts = data;
+    advertsToRender = window.utilsModule.shuffleAndReturnArray(
         data,
-        window.data.maxAdverts
+        window.dataModule.maxAdverts
     );
 
     renderSimilarPins(advertsToRender);
@@ -77,7 +77,7 @@
     );
   }
 
-  window.pin = {
+  window.pinModule = {
     removeSimilarPinsFromPage: removeSimilarPinsFromPage,
     renderSimilarPins: renderSimilarPins,
     setupSimilarAdverts: setupSimilarAdverts,

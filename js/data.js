@@ -29,7 +29,7 @@
   var isPageActive = false;
   var MAXIMUM_ADVERTS_AMOUNT_ON_PAGE = 5;
 
-  window.data = {
+  window.dataModule = {
     houseData: houseData,
     mapData: mapData,
     isPageActive: isPageActive,
