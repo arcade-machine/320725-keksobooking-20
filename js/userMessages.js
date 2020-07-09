@@ -9,17 +9,19 @@
   function renderSuccessMessage() {
     var successPopup = successPopupTemplate.querySelector('.success');
 
-    mainContainer.appendChild(successPopup);
-
-    successPopup.addEventListener('click', function () {
-      successPopup.parentNode.removeChild(successPopup);
-    });
-
-    document.addEventListener('keydown', function (evt) {
+    function removePopupFromPage(evt) {
       if (evt.key === 'Escape') {
         successPopup.parentNode.removeChild(successPopup);
       }
-    });
+
+      document.removeEventListener('keydown', removePopupFromPage);
+      successPopup.removeEventListener('click', removePopupFromPage);
+    }
+
+    mainContainer.appendChild(successPopup);
+
+    successPopup.addEventListener('click', removePopupFromPage);
+    document.addEventListener('keydown', removePopupFromPage);
   }
 
   function renderFailMessage() {
@@ -27,15 +29,19 @@
 
     mainContainer.appendChild(errorPopup);
 
-    errorPopup.addEventListener('click', function () {
-      errorPopup.parentNode.removeChild(errorPopup);
-    });
+    errorPopup.addEventListener('click', removePopupFromPage);
 
-    document.addEventListener('keydown', function (evt) {
-      if (evt.key === 'Escape') {
+    function removePopupFromPage(evt) {
+      if (evt.key === 'Escape' || evt.button === 0) {
         errorPopup.parentNode.removeChild(errorPopup);
       }
-    });
+
+      document.removeEventListener('keydown', removePopupFromPage);
+      errorPopup.removeEventListener('click', removePopupFromPage);
+    }
+
+    errorPopup.addEventListener('click', removePopupFromPage);
+    document.addEventListener('keydown', removePopupFromPage);
   }
 
   window.userMessagesModule = {
