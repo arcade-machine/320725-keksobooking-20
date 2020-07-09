@@ -16,6 +16,9 @@
 
     sendAdvertForm.addEventListener('submit', onSubmitForm);
     resetFormButton.addEventListener('click', deactivatePage);
+
+    mainPin.removeEventListener('mousedown', onMainPinClick);
+    mainPin.removeEventListener('keydown', onMainPinClick);
   }
 
   function deactivatePage() {
@@ -29,6 +32,9 @@
 
     sendAdvertForm.removeEventListener('submit', onSubmitForm);
     resetFormButton.removeEventListener('click', deactivatePage);
+
+    mainPin.addEventListener('mousedown', onMainPinClick);
+    mainPin.addEventListener('keydown', onMainPinClick);
   }
 
   function onSubmitForm(evt) {
@@ -48,17 +54,14 @@
     evt.preventDefault();
   }
 
-  mainPin.addEventListener('mousedown', function (evt) {
-    if (evt.button === 0 && !window.dataModule.isPageActive) {
+  function onMainPinClick(evt) {
+    if (evt.button === 0 && !window.dataModule.isPageActive ||
+      evt.key === 'Enter' && !window.dataModule.isPageActive) {
       evt.preventDefault();
       activatePage();
     }
-  });
+  }
 
-  mainPin.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter' && !window.dataModule.isPageActive) {
-      evt.preventDefault();
-      activatePage();
-    }
-  });
+  mainPin.addEventListener('mousedown', onMainPinClick);
+  mainPin.addEventListener('keydown', onMainPinClick);
 })();
