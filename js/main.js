@@ -14,6 +14,7 @@
     window.pinModule.setupSimilarAdverts();
     window.filterModule.setupOrRemoveEventsForForm();
 
+    sendAdvertForm.addEventListener('submit', onSubmitForm);
     resetFormButton.addEventListener('click', deactivatePage);
   }
 
@@ -26,10 +27,11 @@
     window.pinModule.removeSimilarPinsFromPage();
     window.filterModule.setupOrRemoveEventsForForm();
 
+    sendAdvertForm.removeEventListener('submit', onSubmitForm);
     resetFormButton.removeEventListener('click', deactivatePage);
   }
 
-  sendAdvertForm.addEventListener('submit', function (evt) {
+  function onSubmitForm(evt) {
     var formData = new FormData(sendAdvertForm);
 
     window.backendModule.save(
@@ -44,7 +46,7 @@
     );
 
     evt.preventDefault();
-  });
+  }
 
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0 && !window.dataModule.isPageActive) {
