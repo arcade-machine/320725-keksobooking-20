@@ -24,26 +24,30 @@
     {value: 3, text: 'для 3 гостей'}
   ];
 
+  disableOrActivateForm(true);
+  renderCapacityOptions(+roomNumber.value);
   addressInput.readOnly = true;
 
-  checkinSelect.addEventListener('input', function () {
-    checkoutSelect.value = checkinSelect.value;
-  });
+  function setupEventsForAdvertFrom() {
+    checkinSelect.addEventListener('input', function () {
+      checkoutSelect.value = checkinSelect.value;
+    });
 
-  checkoutSelect.addEventListener('input', function () {
-    checkinSelect.value = checkoutSelect.value;
-  });
+    checkoutSelect.addEventListener('input', function () {
+      checkinSelect.value = checkoutSelect.value;
+    });
 
-  typeOfHouse.addEventListener('input', function () {
-    var minimumPrice = window.dataModule.houseData.HOUSE_MINIMAL_PRICES[typeOfHouse.value];
+    typeOfHouse.addEventListener('input', function () {
+      var minimumPrice = window.dataModule.houseData.HOUSE_MINIMAL_PRICES[typeOfHouse.value];
 
-    priceForNight.min = minimumPrice;
-    priceForNight.placeholder = minimumPrice;
-  });
+      priceForNight.min = minimumPrice;
+      priceForNight.placeholder = minimumPrice;
+    });
 
-  roomNumber.addEventListener('input', function () {
-    renderCapacityOptions(+roomNumber.value);
-  });
+    roomNumber.addEventListener('input', function () {
+      renderCapacityOptions(+roomNumber.value);
+    });
+  }
 
   function disableOrActivateForm(shouldItBeDisabled) {
     addressInput.disabled = shouldItBeDisabled;
@@ -93,13 +97,10 @@
     capacity.appendChild(optionsDocumentFragment);
   }
 
-  renderCapacityOptions(+roomNumber.value);
-
-  disableOrActivateForm(true);
-
   function activateForm() {
     cityMap.classList.remove('map--faded');
     sendAdvertForm.classList.remove('ad-form--disabled');
+    sendAdvertForm.addEventListener('change', setupEventsForAdvertFrom);
     disableOrActivateForm(false);
   }
 
@@ -107,6 +108,7 @@
     cityMap.classList.add('map--faded');
     sendAdvertForm.classList.add('ad-form--disabled');
     sendAdvertForm.reset();
+    sendAdvertForm.removeEventListener('change', setupEventsForAdvertFrom);
     disableOrActivateForm(true);
   }
 
