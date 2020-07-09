@@ -8,8 +8,15 @@
   var avatarInput = sendAdvertForm.querySelector('#avatar');
   var photoInput = sendAdvertForm.querySelector('#images');
 
-  avatarInput.addEventListener('change', uploadFiles);
-  photoInput.addEventListener('change', uploadFiles);
+  function setupPhotoInputListeners() {
+    avatarInput.addEventListener('change', uploadFiles);
+    photoInput.addEventListener('change', uploadFiles);
+  }
+
+  function removePhotoInputListeners() {
+    avatarInput.removeEventListener('change', uploadFiles);
+    photoInput.removeEventListener('change', uploadFiles);
+  }
 
   function uploadFiles(evt) {
     var previewContainer;
@@ -54,4 +61,8 @@
     }
   }
 
+  window.uploadModule = {
+    setupPhotoInputListeners: setupPhotoInputListeners,
+    removePhotoInputListeners: removePhotoInputListeners
+  };
 })();

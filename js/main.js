@@ -13,6 +13,7 @@
     window.mainPinModule.setUpAddressLocation(window.dataModule.isPageActive);
     window.pinModule.setupSimilarAdverts();
     window.filterModule.setupOrRemoveEventsForForm();
+    window.uploadModule.setupPhotoInputListeners();
 
     sendAdvertForm.addEventListener('submit', onSubmitForm);
     resetFormButton.addEventListener('click', deactivatePage);
@@ -29,6 +30,7 @@
     window.mainPinModule.setUpAddressLocation(window.dataModule.isPageActive);
     window.pinModule.removeSimilarPinsFromPage();
     window.filterModule.setupOrRemoveEventsForForm();
+    window.uploadModule.removePhotoInputListeners();
 
     sendAdvertForm.removeEventListener('submit', onSubmitForm);
     resetFormButton.removeEventListener('click', deactivatePage);
