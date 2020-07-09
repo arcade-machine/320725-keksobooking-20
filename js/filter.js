@@ -3,7 +3,15 @@
 (function () {
   var filterForm = document.querySelector('.map__filters');
 
-  filterForm.addEventListener('change', function () {
+  function setupOrRemoveEventsForForm() {
+    if (window.dataModule.isPageActive) {
+      filterForm.addEventListener('change', setupEvents);
+      return;
+    }
+    filterForm.removeEventListener('change', setupEvents);
+  }
+
+  function setupEvents() {
     var formGuestInput = filterForm.elements.namedItem('housing-guests');
     var formTypeInput = filterForm.elements.namedItem('housing-type');
     var formRoomsInput = filterForm.elements.namedItem('housing-rooms');
@@ -57,7 +65,7 @@
     }
 
     window.pinModule.renderSimilarPins(window.pinModule.advertsToRender);
-  });
+  }
 
   function filterForSelect(input, array, filteredProperty) {
     var filteredArray = array.slice();
@@ -115,4 +123,8 @@
 
     return filteredArray;
   }
+
+  window.filterModule = {
+    setupOrRemoveEventsForForm: setupOrRemoveEventsForForm
+  };
 })();

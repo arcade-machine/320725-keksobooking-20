@@ -12,6 +12,7 @@
     window.formModule.activateForm();
     window.mainPinModule.setUpAddressLocation(window.dataModule.isPageActive);
     window.pinModule.setupSimilarAdverts();
+    window.filterModule.setupOrRemoveEventsForForm();
 
     resetFormButton.addEventListener('click', deactivatePage);
   }
@@ -23,6 +24,7 @@
     window.mainPinModule.setPinToDefaultStatus();
     window.mainPinModule.setUpAddressLocation(window.dataModule.isPageActive);
     window.pinModule.removeSimilarPinsFromPage();
+    window.filterModule.setupOrRemoveEventsForForm();
 
     resetFormButton.removeEventListener('click', deactivatePage);
   }
